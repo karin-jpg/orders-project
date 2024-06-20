@@ -6,8 +6,9 @@ use App\Domain\Model\Person;
 
 interface OrderRepositoryInterface
 {
-    public function findById($id): ?Order;
+    public function findById($id): array;
 	public function findPersonById($personId): ?Person;
 	public function paginate($page, $limit): array;
-	public function searchByCustomerName($name): array;	
+	public function searchByCustomerName($name): array;
+	public function cancelOrder($orderId): array;	
 }

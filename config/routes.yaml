@@ -1,17 +1,19 @@
 order_cancel:
-    path: /orders/{order_id}/cancel
+    path: /orders/{orderId}/cancel
     controller: App\Presentation\Controller\OrderController::cancelOrder
-
-order_search:
-    path: /orders/search
-    controller: App\Presentation\Controller\OrderController::searchOrders
+    methods: [GET]
 
 order_search_customer:
     path: /orders/search/customer
     controller: App\Presentation\Controller\OrderController::searchByCustomerName
     methods: [POST]
 
+order_search_by_id:
+    path: /orders/{orderId}
+    controller: App\Presentation\Controller\OrderController::findById
+    methods: [GET]
 
-order_paginate:
+order_search:
     path: /orders/page/{page}
     controller: App\Presentation\Controller\OrderController::paginateOrders
+    methods: [GET]

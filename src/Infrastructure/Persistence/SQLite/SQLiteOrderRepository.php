@@ -17,35 +17,46 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
         $this->connection = $connection;
     }
 
-    public function findById($id): ?Order
-    {
+	public function cancelOrder($orderId): array 
+	{
+		
 		$queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
-            ->select('*')
+			->update('orders')
+			->set('status', ':status')
+			->where('id = :id')
+			->setParameter('status', 'cancelled')
+			->setParameter('id', $orderId);
+
+		$affectedRows = $queryBuilder->executeStatement($queryBuilder->getSQL(), $queryBuilder->getParameters());
+		return [
+			"affectedRows" => $affectedRows,
+			"order" => $this->findById($orderId)
+		];
+		 
+
+	}
+
+    public function findById($id): array
+    {
+
+		$queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('orders.id, orders.date, persons.name as customer, persons.address as address1, persons.city, persons.postcode, persons.country, orders.amount, orders.status, orders.deleted, orders.last_modified')
             ->from('orders')
-            ->where('id = :id')
+			->join('orders', 'persons', 'persons', 'orders.person_id = persons.id')
+            ->where('orders.id = :id')
             ->setParameter('id', $id);
 
-		$statement = $this->connection->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters());
-		$result = $statement->fetchAssociative();
-        
-		if (!$result) {
-            return null;
-        }
+		$statement = $queryBuilder->executeQuery();
+		return $statement->fetchAllAssociative();
 
-        $order = new Order();
-        $order->setValuesFromDatabase($result);
-        $person = $this->findPersonById($result['person_id']);
-		$order->setPerson($person);
-
-        return $order;
     }
 
 	#Should be on the person SQLITE repository
-	public function findPersonById($personId): ?Person
+	public function findPersonById($personId, $json = false): ?Person
     {
 
-		
 		$queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('*')
@@ -71,16 +82,28 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
 		if($page < 1) {
 			$page = 1;
 		}
+		
 		$queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('orders.id, orders.date, persons.name as customer, persons.address as address1, persons.city, persons.postcode, persons.country, orders.amount, orders.status, orders.deleted, orders.last_modified')
             ->from('orders')
 			->join('orders', 'persons', 'persons', 'orders.person_id = persons.id')
-            ->setMaxResults($limit)
+            ->setMaxResults($limit + 1)
             ->setFirstResult($limit * ($page - 1));
 
 		$statement = $queryBuilder->executeQuery();
-		return $statement->fetchAllAssociative();
+		$result = $statement->fetchAllAssociative();
+
+		$hasNextPage = count($result) > $limit;
+
+		if ($hasNextPage) {
+			array_pop($result);
+		}
+
+		return [
+			"hasNextPage" => $hasNextPage,
+			"orders" => $result
+		];
     }
 
 	public function searchByCustomerName($name): array

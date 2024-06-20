@@ -13,13 +13,8 @@ class OrderService
 
     public function cancelOrder($orderId)
     {
-        $order = $this->orderRepository->findById($orderId);
-        if ($order) {
-            $order->setStatus('cancelled');
-            $this->orderRepository->save($order);
-			return true;
-        }
-		return false;
+        
+		return $this->orderRepository->cancelOrder($orderId);
     }
 
 	public function paginateOrders($page, $limit = 10)
@@ -30,5 +25,10 @@ class OrderService
 	public function searchByCustomerName($customerName)
 	{
 		return $this->orderRepository->searchByCustomerName($customerName);
+	}
+
+	public function findById($orderId)
+	{
+		return $this->orderRepository->findById($orderId);	
 	}
 }
