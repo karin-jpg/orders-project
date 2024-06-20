@@ -1,13 +1,16 @@
+<?php
 namespace App\Infrastructure\Persistence\SQLite;
 
 use App\Domain\Model\Order;
 use App\Domain\Model\OrderRepositoryInterface;
+use Doctrine\DBAL\Connection;
+
 
 class SQLiteOrderRepository implements OrderRepositoryInterface
 {
     private $connection;
 
-    public function __construct(\PDO $connection)
+	public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }

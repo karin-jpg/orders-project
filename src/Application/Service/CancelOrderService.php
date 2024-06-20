@@ -1,5 +1,5 @@
+<?php
 namespace App\Application\Service;
-
 use App\Domain\Model\OrderRepositoryInterface;
 
 class CancelOrderService

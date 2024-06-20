@@ -1,3 +1,4 @@
+<?php
 namespace App\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
