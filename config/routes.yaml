@@ -3,7 +3,7 @@
 #    controller: App\Controller\DefaultController::index
 
 order_cancel:
-    path: /orders/{id}/cancel
+    path: /orders/{order_id}/cancel
     controller: App\Presentation\Controller\OrderController::cancelOrder
 
 order_search:

@@ -19,13 +19,17 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
 
     public function findById($id): ?Order
     {
-		$sql = 'SELECT * FROM orders WHERE id = :id';
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue('id', $id);
-        // $stmt->execute();
-        $result = $stmt->fetch();
+		$queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('*')
+            ->from('orders')
+            ->where('id = :id')
+            ->setParameter('id', $id);
 
-        if (!$result) {
+		$statement = $this->connection->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters());
+		$result = $statement->fetchAssociative();
+        
+		if (!$result) {
             return null;
         }
 
@@ -40,11 +44,17 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
 	#Should be on the person SQLITE repository
 	public function findPersonById(int $personId): ?Person
     {
-        $sql = 'SELECT * FROM persons WHERE id = :id';
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue('id', $personId);
-        // $stmt->execute();
-        $result = $stmt->fetch();
+
+		
+		$queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('*')
+            ->from('persons')
+            ->where('id = :id')
+            ->setParameter('id', $personId);
+
+		$statement = $this->connection->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters());
+		$result = $statement->fetchAssociative();
 
         if (!$result) {
             return null;
@@ -70,6 +80,14 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
 
     public function paginate($page, $limit): array
     {
-		return [];
+		$queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('*')
+            ->from('orders')
+            ->setMaxResults($limit)
+            ->setFirstResult($page);
+
+		$statement = $queryBuilder->executeQuery();
+		return $statement->fetchAllAssociative();
     }
 }

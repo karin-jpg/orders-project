@@ -106,8 +106,8 @@ class Order
 		$this->setId($result['id']);
 		$this->setStatus($result['status']);
 		$this->setDeleted($result['deleted']);
-		$this->setLastModified($result['last_modified']);
-		$this->setDate($result['date']);
+		$this->setLastModified(new \DateTime($result['last_modified']));
+		$this->setDate(new \DateTime($result['date']));
 		$this->setAmount($result['amount']);
 	}
 }

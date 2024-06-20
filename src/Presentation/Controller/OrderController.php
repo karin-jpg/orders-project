@@ -4,30 +4,30 @@ namespace App\Presentation\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Application\Service\CancelOrderService;
+use App\Application\Service\OrderService;
 use App\Application\Service\SearchOrderService;
-use App\Application\Service\PaginateOrdersService;
 
 class OrderController extends AbstractController
 {
-    private $cancelOrderService;
+	private $orderService;
     private $searchOrderService;
-    private $paginateOrdersService;
 
     public function __construct(
-        CancelOrderService $cancelOrderService,
+		OrderService $orderService,
         SearchOrderService $searchOrderService,
-        PaginateOrdersService $paginateOrdersService
     ) {
-        $this->cancelOrderService = $cancelOrderService;
+		$this->orderService = $orderService;
         $this->searchOrderService = $searchOrderService;
-        $this->paginateOrdersService = $paginateOrdersService;
     }
 
-    public function cancelOrder($orderId)
+    public function cancelOrder($order_id)
     {
-        $this->cancelOrderService->execute($orderId);
-        return new Response('Order cancelled', 200);
+        $cancelled = $this->orderService->cancelOrder($order_id);
+        if ($cancelled) {
+			return new Response('Order cancelled!', 200);
+		}
+		return new Response('Order not found!', 400);
+		
     }
 
     public function searchOrders(Request $request)
@@ -40,7 +40,7 @@ class OrderController extends AbstractController
 
     public function paginateOrders($page)
     {
-        $orders = $this->paginateOrdersService->execute($page);
+        $orders = $this->orderService->paginateOrders($page);
         return $this->json($orders);
     }
 }

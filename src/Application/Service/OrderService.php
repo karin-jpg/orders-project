@@ -2,7 +2,7 @@
 namespace App\Application\Service;
 use App\Domain\Repository\OrderRepositoryInterface;
 
-class CancelOrderService
+class OrderService
 {
     private $orderRepository;
 
@@ -11,12 +11,19 @@ class CancelOrderService
         $this->orderRepository = $orderRepository;
     }
 
-    public function execute($orderId)
+    public function cancelOrder($orderId)
     {
         $order = $this->orderRepository->findById($orderId);
         if ($order) {
-            $order->cancel();
+            $order->setStatus('cancelled');
             $this->orderRepository->save($order);
+			return true;
         }
+		return false;
+    }
+
+	public function paginateOrders($page, $limit = 10)
+    {
+        return $this->orderRepository->paginate($page, $limit);
     }
 }
