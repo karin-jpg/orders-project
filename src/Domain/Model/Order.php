@@ -26,9 +26,14 @@ class Order
     private $status;
 
 	/**
+     * @ORM\Column(type="string")
+     */
+    private $deleted;
+
+	/**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private $last_modified;
 
 	public function getId(): ?int
     {
@@ -62,5 +67,10 @@ class Order
     public function cancel()
     {
         $this->status = 'cancelled';
+    }
+
+	public function delete()
+    {
+        $this->deleted = 'Yes';
     }
 }
