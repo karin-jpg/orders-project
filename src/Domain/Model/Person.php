@@ -76,4 +76,14 @@ class Person
 
         return $this;
     }
+
+	public function setValuesFromDatabase(array $result): void
+	{
+		$this->setId($result['id']);
+		$this->setName($result['name']);
+		$this->setAddress($result['address']);
+		$this->setCity($result['city']);
+		$this->setPostCode($result['postcode']);
+		$this->setCountry($result['country']);
+	}
 }

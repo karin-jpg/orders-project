@@ -17,7 +17,6 @@ class Order
      */
     private $id;
 
-
 	/**
      * @ORM\Column(type="datetime")
      */
@@ -48,8 +47,6 @@ class Order
      * @ORM\Column(type="datetime")
      */
     private $last_modified;
-
-	
 
 	public function getId(): ?int
     {
@@ -103,4 +100,14 @@ class Order
 
         return $this;
     }
+
+	public function setValuesFromDatabase(array $result): void
+	{
+		$this->setId($result['id']);
+		$this->setStatus($result['status']);
+		$this->setDeleted($result['deleted']);
+		$this->setLastModified($result['last_modified']);
+		$this->setDate($result['date']);
+		$this->setAmount($result['amount']);
+	}
 }
