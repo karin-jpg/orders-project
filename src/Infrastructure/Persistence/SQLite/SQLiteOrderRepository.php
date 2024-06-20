@@ -1,8 +1,9 @@
 <?php
 namespace App\Infrastructure\Persistence\SQLite;
 
+
+use App\Domain\Repository\OrderRepositoryInterface;
 use App\Domain\Model\Order;
-use App\Domain\Model\OrderRepositoryInterface;
 use Doctrine\DBAL\Connection;
 
 

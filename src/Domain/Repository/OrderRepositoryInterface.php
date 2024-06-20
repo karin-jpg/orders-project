@@ -1,5 +1,7 @@
 <?php
-namespace App\Domain\Model;
+namespace App\Domain\Repository;
+
+use App\Domain\Model\Order;
 
 interface OrderRepositoryInterface
 {
