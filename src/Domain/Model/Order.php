@@ -90,16 +90,16 @@ class Order
         return $this;
     }
 
-	public function setDate(DateTime $date): self
+	public function setDate(Datetime $date): self
     {
         $this->date = $date;
 
         return $this;
     }
 
-	public function setLastModified(DateTime $last_modified): self
+	public function setLastModified(Datetime $last_modified): self
     {
-        $this->$last_modified = $last_modified;
+        $this->last_modified = $last_modified;
 
         return $this;
     }

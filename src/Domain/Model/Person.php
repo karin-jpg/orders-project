@@ -42,9 +42,11 @@ class Person
     private $country;
 
 
-    public function getId(): ?int
+	public function setName(string $name): self
     {
-        return $this->id;
+        $this->name = $name;
+
+        return $this;
     }
 
     public function setAddress(string $address): self

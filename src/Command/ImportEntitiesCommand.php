@@ -59,11 +59,11 @@ class ImportEntitiesCommand extends Command
             $order = new Order();
 			$order->setId($orderDetails['id']);
             $order->setPerson($person);
-			$order->setCreatedAt(new \DateTime($orderDetails['date']));
+			$order->setDate(new \DateTime($orderDetails['date']));
             $order->setAmount($orderDetails['amount']);
 			$order->setStatus($orderDetails['status']);
 			$order->setDeleted($orderDetails['deleted']);
-            $order->setCreatedAt(new \DateTime($orderDetails['last_modified']));
+            $order->setLastModified(new \DateTime($orderDetails['last_modified']));
 
             $this->entityManager->persist($person);
             $this->entityManager->persist($order);
