@@ -43,4 +43,12 @@ class OrderController extends AbstractController
         $orders = $this->orderService->paginateOrders($page);
         return $this->json($orders);
     }
+
+	public function searchOrdersByCustomerName(Request $request)
+    {
+		$jsonData = json_decode($request->getContent(), true);
+		$customerName = $jsonData['name'];
+        $orders = $this->orderService->searchOrdersByCustomerName($customerName);
+        return $this->json($orders);
+    }
 }

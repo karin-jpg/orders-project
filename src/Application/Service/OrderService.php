@@ -26,4 +26,9 @@ class OrderService
     {
         return $this->orderRepository->paginate($page, $limit);
     }
+
+	public function searchOrdersByCustomerName($customerName)
+	{
+		return $this->orderRepository->searchOrdersByCustomerName($customerName);
+	}
 }

@@ -6,6 +6,12 @@ order_search:
     path: /orders/search
     controller: App\Presentation\Controller\OrderController::searchOrders
 
+order_search_customer:
+    path: /orders/search/customer
+    controller: App\Presentation\Controller\OrderController::searchOrdersByCustomerName
+    methods: [POST]
+
+
 order_paginate:
     path: /orders/page/{page}
     controller: App\Presentation\Controller\OrderController::paginateOrders
