@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Application\Service\OrderService;
 use App\Application\Service\SearchOrderService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OrderController extends AbstractController
 {
@@ -20,9 +21,9 @@ class OrderController extends AbstractController
         $this->searchOrderService = $searchOrderService;
     }
 
-    public function cancelOrder($order_id)
+    public function cancelOrder($orderId): Response
     {
-        $cancelled = $this->orderService->cancelOrder($order_id);
+        $cancelled = $this->orderService->cancelOrder($orderId);
         if ($cancelled) {
 			return new Response('Order cancelled!', 200);
 		}
@@ -30,7 +31,7 @@ class OrderController extends AbstractController
 		
     }
 
-    public function searchOrders(Request $request)
+    public function searchOrders(Request $request): JsonResponse
     {
         $customer = $request->query->get('customer');
         $status = $request->query->get('status');
@@ -38,17 +39,17 @@ class OrderController extends AbstractController
         return $this->json($orders);
     }
 
-    public function paginateOrders($page)
+    public function paginateOrders($page): JsonResponse
     {
         $orders = $this->orderService->paginateOrders($page);
         return $this->json($orders);
     }
 
-	public function searchOrdersByCustomerName(Request $request)
+	public function searchByCustomerName(Request $request): JsonResponse
     {
 		$jsonData = json_decode($request->getContent(), true);
 		$customerName = $jsonData['name'];
-        $orders = $this->orderService->searchOrdersByCustomerName($customerName);
+        $orders = $this->orderService->searchByCustomerName($customerName);
         return $this->json($orders);
     }
 }

@@ -8,7 +8,7 @@ order_search:
 
 order_search_customer:
     path: /orders/search/customer
-    controller: App\Presentation\Controller\OrderController::searchOrdersByCustomerName
+    controller: App\Presentation\Controller\OrderController::searchByCustomerName
     methods: [POST]
 
 

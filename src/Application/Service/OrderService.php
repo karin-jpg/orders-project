@@ -27,8 +27,8 @@ class OrderService
         return $this->orderRepository->paginate($page, $limit);
     }
 
-	public function searchOrdersByCustomerName($customerName)
+	public function searchByCustomerName($customerName)
 	{
-		return $this->orderRepository->searchOrdersByCustomerName($customerName);
+		return $this->orderRepository->searchByCustomerName($customerName);
 	}
 }

@@ -42,7 +42,7 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
     }
 
 	#Should be on the person SQLITE repository
-	public function findPersonById(int $personId): ?Person
+	public function findPersonById($personId): ?Person
     {
 
 		
@@ -66,18 +66,6 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
         return $person;
     }
 
-    public function findByCustomerOrStatus($person_id, $status): array
-    {
-
-		return [];
-        
-    }
-
-    public function save(Order $order): void
-    {
-        
-    }
-
     public function paginate($page, $limit): array
     {
 		if($page < 1) {
@@ -95,7 +83,7 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
 		return $statement->fetchAllAssociative();
     }
 
-	public function searchOrdersByCustomerName($name)
+	public function searchByCustomerName($name): array
 	{
 		$queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
