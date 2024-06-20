@@ -1,10 +1,10 @@
 order_cancel:
     path: /orders/{orderId}/cancel
     controller: App\Presentation\Controller\OrderController::cancelOrder
-    methods: [GET]
+    methods: [DELETE]
 
 order_search_customer:
-    path: /orders/search/customer
+    path: /orders/customer
     controller: App\Presentation\Controller\OrderController::searchByCustomerName
     methods: [POST]
 
