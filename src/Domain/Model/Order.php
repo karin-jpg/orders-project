@@ -1,5 +1,7 @@
 <?php
 namespace App\Domain\Model;
+
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,6 +17,12 @@ class Order
      */
     private $id;
 
+
+	/**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
     /**
      * @ORM\ManyToOne(targetEntity="Person")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id", nullable=false)
@@ -27,6 +35,11 @@ class Order
     private $status;
 
 	/**
+     * @ORM\Column(type="integer")
+     */
+    private $amount;
+
+	/**
      * @ORM\Column(type="string")
      */
     private $deleted;
@@ -36,14 +49,17 @@ class Order
      */
     private $last_modified;
 
+	
+
 	public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPerson(): ?Person
+	public function setId(int $id): self
     {
-        return $this->person;
+		$this->id = $id;
+        return $this;
     }
 
     public function setPerson(Person $person): self
@@ -53,9 +69,11 @@ class Order
         return $this;
     }
 
-    public function getStatus(): ?string
+	public function setAmount(int $amount): self
     {
-        return $this->status;
+        $this->amount = $amount;
+
+        return $this;
     }
 
     public function setStatus(string $status): self
@@ -65,13 +83,24 @@ class Order
         return $this;
     }
 
-    public function cancel()
+	public function setDeleted(string $deleted): self
     {
-        $this->status = 'cancelled';
+        $this->deleted = $deleted;
+
+        return $this;
     }
 
-	public function delete()
+	public function setDate(DateTime $date): self
     {
-        $this->deleted = 'Yes';
+        $this->date = $date;
+
+        return $this;
+    }
+
+	public function setLastModified(DateTime $last_modified): self
+    {
+        $this->$last_modified = $last_modified;
+
+        return $this;
     }
 }

@@ -22,10 +22,24 @@ class Person
     private $name;
 
 	/**
-     * @ORM\OneToOne(targetEntity="Address")
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=false)
+     * @ORM\Column(type="string")
      */
-    private $person;
+    private $address;
+
+	/**
+     * @ORM\Column(type="string")
+     */
+    private $city;
+
+	/**
+     * @ORM\Column(type="string")
+     */
+    private $postcode;
+
+	/**
+     * @ORM\Column(type="string")
+     */
+    private $country;
 
 
     public function getId(): ?int
@@ -33,26 +47,31 @@ class Person
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function setAddress(string $address): self
     {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+	public function setCity(string $city): self
     {
-        return $this->email;
+        $this->city = $city;
+
+        return $this;
     }
 
-    public function setEmail(string $email): self
+	public function setPostCode(string $postcode): self
     {
-        $this->email = $email;
+        $this->postcode = $postcode;
+
+        return $this;
+    }
+
+	public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
         return $this;
     }
 }
