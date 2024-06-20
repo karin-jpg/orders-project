@@ -27,4 +27,7 @@ services:
     # as action arguments even if you don't extend any base controller class  
     App\Presentation\Controller\:
         resource: '../src/Presentation/Controller'
-        tags: ['controller.service_arguments']      
+        tags: ['controller.service_arguments']
+    
+    App\Command\ImportEntitiesCommand:
+        tags: ['console.command']
