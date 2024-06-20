@@ -80,12 +80,16 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
 
     public function paginate($page, $limit): array
     {
+		if($page < 1) {
+			$page = 1;
+		}
 		$queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
-            ->select('*')
+            ->select('orders.id, orders.date, persons.name as customer, persons.address as address1, persons.city, persons.postcode, persons.country, orders.amount, orders.status, orders.deleted, orders.last_modified')
             ->from('orders')
+			->join('orders', 'persons', 'persons', 'orders.person_id = persons.id')
             ->setMaxResults($limit)
-            ->setFirstResult($page);
+            ->setFirstResult($limit * ($page - 1));
 
 		$statement = $queryBuilder->executeQuery();
 		return $statement->fetchAllAssociative();
