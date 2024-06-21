@@ -40,7 +40,7 @@ This Symfony 4 API implemented with DDD provides functionalities to manage order
     ```
 8. Run the local server - if done correctly, it should be available on the http://127.0.0.1:8000
     ```sh
-    Symfony server:start
+    symfony server:start
     ```
 
 Remember to import the orders from the JSON file as instructed below before using the API!
