@@ -18,29 +18,32 @@ This Symfony 4 API implemented with DDD provides functionalities to manage order
     cd <project_directory>
     ```
 
-3. Install dependencies:
-    ```sh
-    composer install
-    ```
-
-4. Configure the `.env` file with your database credentials (example):
+3. Configure the `.env` file with your database credentials (example):
     ```env
     DATABASE_URL="sqlite:///%kernel.project_dir%/var/sqlite/app.db"
     ```
+4. Install dependencies:
+    ```sh
+    composer install
+    ```
+5. Create the app.db file on var/sqlite - the following commands will not work if the file is not created or on the right folder defined on step 3
 
-5. Create the database:
+6. Create the database:
     ```sh
     php bin/console doctrine:database:create
     ```
 
-6. Update the database with the entities:
+7. Update the database with the entities:
     ```sh
     php bin/console doctrine:schema:update --force --complete
     ```
-7. Run the local server - if done correctly, it should be available on the http://127.0.0.1:8000
+8. Run the local server - if done correctly, it should be available on the http://127.0.0.1:8000
     ```sh
     Symfony server:start
     ```
+
+Remember to import the orders from the JSON file as instructed below before using the API!
+
 ## Functionality
 
 1. Import Orders from JSON File
