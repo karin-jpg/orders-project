@@ -4,10 +4,11 @@
 This Symfony 4 API implemented with DDD provides functionalities to manage orders, including importing orders from a JSON file, retrieving paginated orders, canceling orders, and searching orders by customer or status.
 
 ## Requirements
-- PHP 7.1.3 or higher
-- Symfony 4
-- Doctrine ORM
-- SQLite3 or another supported database
+- [PHP](https://www.php.net/) 7.1.3 or higher
+- [Composer](https://getcomposer.org/download/) 2.5.8 or higher
+- [Symfony 4](https://symfony.com/doc/4.x/setup.html)
+- [Doctrine ORM](https://symfony.com/doc/4.x/doctrine.html)
+- [SQLite3](https://www.sqlite.org/) or another supported database
 
 ## Installation
 1. Clone this repository;
