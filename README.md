@@ -18,11 +18,8 @@ This Symfony 4 API implemented with DDD provides functionalities to manage order
     cd <project_directory>
     ```
 
-3. Configure the `.env` file with your database credentials (example):
-    ```env
-    DATABASE_URL="sqlite:///%kernel.project_dir%/var/sqlite/app.db"
-    ```
-    Or you can clone the .env copy file that has all the needed configuration
+3. Copy and paste the .env.example file and change its name to .env
+   
 4. Install dependencies:
     ```sh
     composer install
