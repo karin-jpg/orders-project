@@ -1,7 +1,7 @@
 # Symfony 4 API Documentation
 
 ## Overview
-This Symfony 4 API provides functionalities to manage orders, including importing orders from a JSON file, retrieving paginated orders, canceling orders, and searching orders by customer or status.
+This Symfony 4 API implemented with DDD provides functionalities to manage orders, including importing orders from a JSON file, retrieving paginated orders, canceling orders, and searching orders by customer or status.
 
 ## Requirements
 - PHP 7.1.3 or higher
