@@ -66,18 +66,18 @@ Json structure:
 php bin/console app:import-entities ./src/Resource/entities.json
 ```
 Remember that if the file is moved from the original folder, the path to it should be ajusted on the console command
- 2. Retrieve Paginated Orders
-Retrieve orders with pagination (10 orders per page).
+ 2. Get Order
+Retrieve orders.
 GET Request
-Path: /orders/page/{page}
+Path: /orders
 Example:
 ```sh
 curl -X GET http://127.0.0.1:8000/orders/page/1
 ```
 
- 3. Retrieve Paginated Orders
+ 3. Cancel order
 Allow users to cancel an order.
-DELETE Request
+POST Request
 Path: /orders/{orderId}/cancel
 Returns an array of orders
 Example:
