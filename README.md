@@ -22,6 +22,7 @@ This Symfony 4 API implemented with DDD provides functionalities to manage order
     ```env
     DATABASE_URL="sqlite:///%kernel.project_dir%/var/sqlite/app.db"
     ```
+    Or you can clone the .env copy file that has all the needed configuration
 4. Install dependencies:
     ```sh
     composer install
