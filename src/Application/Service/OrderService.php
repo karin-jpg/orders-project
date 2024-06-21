@@ -27,6 +27,11 @@ class OrderService
 		return $this->orderRepository->searchByCustomerName($customerName);
 	}
 
+	public function searchByStatus($status)
+	{
+		return $this->orderRepository->searchByStatus($status);
+	}
+
 	public function findById($orderId)
 	{
 		return $this->orderRepository->findById($orderId);	

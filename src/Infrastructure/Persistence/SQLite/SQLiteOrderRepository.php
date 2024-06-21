@@ -119,4 +119,18 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
 		$statement = $this->connection->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters());
 		return $statement->fetchAllAssociative();		
 	}
+
+	public function searchByStatus($status): array
+	{
+		$queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('orders.id, orders.date, persons.name as customer, persons.address as address1, persons.city, persons.postcode, persons.country, orders.amount, orders.status, orders.deleted, orders.last_modified')
+            ->from('orders')
+			->join('orders', 'persons', 'persons', 'orders.person_id = persons.id')
+            ->where('orders.status = :status')
+            ->setParameter('status', $status);
+
+		$statement = $this->connection->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters());
+		return $statement->fetchAllAssociative();		
+	}
 }

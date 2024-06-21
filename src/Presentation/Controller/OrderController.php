@@ -42,6 +42,14 @@ class OrderController extends AbstractController
         return $this->json($orders);
     }
 
+	public function searchByStatus(Request $request): JsonResponse
+    {
+		$jsonData = json_decode($request->getContent(), true);
+		$status = $jsonData['status'];
+        $orders = $this->orderService->searchByStatus($status);
+        return $this->json($orders);
+    }
+
 	public function findById($orderId): JsonResponse
 	{
 		$order = $this->orderService->findById($orderId, true);

@@ -3,9 +3,14 @@ order_cancel:
     controller: App\Presentation\Controller\OrderController::cancelOrder
     methods: [DELETE]
 
-order_search_customer:
+order_search_by_customer:
     path: /orders/customer
     controller: App\Presentation\Controller\OrderController::searchByCustomerName
+    methods: [POST]
+
+order_search_by_status:
+    path: /orders/status
+    controller: App\Presentation\Controller\OrderController::searchByStatus
     methods: [POST]
 
 order_search_by_id:
