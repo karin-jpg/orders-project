@@ -19,6 +19,6 @@ order_search_by_id:
     methods: [GET]
 
 order_search:
-    path: /orders/page/{page}
-    controller: App\Presentation\Controller\OrderController::paginateOrders
+    path: /orders
+    controller: App\Presentation\Controller\OrderController::getOrders
     methods: [GET]

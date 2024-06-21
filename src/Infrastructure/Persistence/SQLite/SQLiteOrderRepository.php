@@ -77,33 +77,15 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
         return $person;
     }
 
-    public function paginate($page, $limit): array
+    public function getOrders(): array
     {
-		if($page < 1) {
-			$page = 1;
-		}
-		
 		$queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('orders.id, orders.date, persons.name as customer, persons.address as address1, persons.city, persons.postcode, persons.country, orders.amount, orders.status, orders.deleted, orders.last_modified')
             ->from('orders')
-			->join('orders', 'persons', 'persons', 'orders.person_id = persons.id')
-            ->setMaxResults($limit + 1)
-            ->setFirstResult($limit * ($page - 1));
-
+			->join('orders', 'persons', 'persons', 'orders.person_id = persons.id');
 		$statement = $queryBuilder->executeQuery();
-		$result = $statement->fetchAllAssociative();
-
-		$hasNextPage = count($result) > $limit;
-
-		if ($hasNextPage) {
-			array_pop($result);
-		}
-
-		return [
-			"hasNextPage" => $hasNextPage,
-			"orders" => $result
-		];
+		return $statement->fetchAllAssociative();
     }
 
 	public function searchByCustomerName($name): array
@@ -113,8 +95,8 @@ class SQLiteOrderRepository implements OrderRepositoryInterface
             ->select('orders.id, orders.date, persons.name as customer, persons.address as address1, persons.city, persons.postcode, persons.country, orders.amount, orders.status, orders.deleted, orders.last_modified')
             ->from('orders')
 			->join('orders', 'persons', 'persons', 'orders.person_id = persons.id')
-            ->where('persons.name = :name')
-            ->setParameter('name', $name);
+			->where($queryBuilder->expr()->like('persons.name', ':name'))
+			->setParameter('name', '%' . $name . '%');
 
 		$statement = $this->connection->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters());
 		return $statement->fetchAllAssociative();		

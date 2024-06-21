@@ -17,9 +17,9 @@ class OrderService
 		return $this->orderRepository->cancelOrder($orderId);
     }
 
-	public function paginateOrders($page, $limit = 10)
+	public function getOrders()
     {
-        return $this->orderRepository->paginate($page, $limit);
+        return $this->orderRepository->getOrders();
     }
 
 	public function searchByCustomerName($customerName)

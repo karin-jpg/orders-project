@@ -28,9 +28,9 @@ class OrderController extends AbstractController
     }
 
 
-    public function paginateOrders($page): JsonResponse
+    public function getOrders(): JsonResponse
     {
-        $orders = $this->orderService->paginateOrders($page);
+        $orders = $this->orderService->getOrders();
         return $this->json($orders);
     }
 
